@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from showtimes.models import Cinema, Screening
 from movielist.models import Movie
+from datetime import datetime, timedelta
 
 
 class CinemaSerializer(serializers.ModelSerializer):
@@ -23,3 +24,17 @@ class ScreeningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screening
         fields = '__all__'
+
+
+class Next30dayScreeningSerializer(serializers.ModelSerializer):
+    movies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cinema
+        fields = '__all__'
+
+    def get_movies(self, obj):
+        today = datetime.now()
+        month_later = today + timedelta(30)
+        return [movie.title for movie in obj.movies.filter(screening__date__gte=today,
+                                                           screening__date__lt=month_later)]

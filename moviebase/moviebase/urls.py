@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from movielist.views import MovieListView, MovieView
-from showtimes.views import CinemaListView, CinemaView, ScreeningListView, ScreeningView
+from showtimes.views import CinemaListView, CinemaView, ScreeningListView, ScreeningView, Next30DaysScreeningsView
 
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^movies/(?P<pk>[0-9]+)/$', MovieView.as_view(), name='movie-detail'),
     url(r'^cinemas/$', CinemaListView.as_view(), name='cinema-list'),
     url(r'^cinemas/(?P<pk>[0-9]+)/$', CinemaView.as_view(), name='cinema-detail'),
+    url(r'^cinemas_timetable/(?P<pk>[0-9]+)/$', Next30DaysScreeningsView.as_view(), name='cinema-repertoire'),
     url(r'^screenings/$', ScreeningListView.as_view(), name='screening-list'),
-    url(r'^screenings/(?P<pk>[0-9]+)/$', ScreeningView.as_view(), name='screening-detail')
+    url(r'^screenings/(?P<pk>[0-9]+)/$', ScreeningView.as_view(), name='screening-detail'),
 ]
