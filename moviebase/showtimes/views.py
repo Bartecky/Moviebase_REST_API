@@ -1,7 +1,6 @@
 from showtimes.models import Cinema, Screening
 from showtimes.serializers import CinemaSerializer, ScreeningSerializer, Next30dayScreeningSerializer
 from rest_framework import generics
-# from django_filters.rest_framework import DjangoFilterBackend
 
 class CinemaListView(generics.ListCreateAPIView):
     queryset = Cinema.objects.all()
@@ -16,8 +15,7 @@ class CinemaView(generics.RetrieveUpdateDestroyAPIView):
 class ScreeningListView(generics.ListCreateAPIView):
     queryset = Screening.objects.all()
     serializer_class = ScreeningSerializer
-    # filter_backends = (DjangoFilterBackend,)
-    # filter_fields = ('cinema__name', 'movie__title')
+    filter_fields = ('cinema__name', 'movie__title')
 
 
 class ScreeningView(generics.RetrieveUpdateDestroyAPIView):
